@@ -51,6 +51,33 @@ class LinkWidget(QWidget):
     def __init__(self):
         super().__init__()
 
+class LinkRadioButtonGroup(QButtonGroup):
+    def __init__(self):
+        super().__init__()
+        self.setExclusive = False
+
+        self.set_buttongroup()
+    def set_buttongroup(self):
+        # TODO : 로컬에 저장되어있는 link 를 불러오는 작업 필요
+        pass
+    
+    def get_buttons(self):
+        # TODO 선택된 버튼이 여러개일 떄는 어떻게 값이 나오는지 예외처리 -> 2개면 리스트려나
+        buttons = self.checkedButton
+
+
+class LinkRadioButton(QRadioButton):
+    def __init__(self, link:str):
+        super().__init__()
+        self.link = link
+
+        self.setText(link)
+
+    def get_link(self):
+        return self.link
+
+
+
 
 def open_main_widget():
     app = QApplication(sys.argv)
