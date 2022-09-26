@@ -10,9 +10,9 @@ class MainWidget(QWidget):
         self.main_layout = QGridLayout()
         self.left_layout = QHBoxLayout()
 
-        self.link_set_button = QPushButton('주소추가', parent=self.left_layout)
-        self.change_account_button = QPushButton('계정번경', parent=self.left_layout)
-        self.start_button = QPushButton('실행', parent= self.left_layout)
+        self.link_set_button = QPushButton('주소추가')
+        self.change_account_button = QPushButton('계정번경')
+        self.start_button = QPushButton('실행')
 
         self.link_scroll_area = QScrollArea()
         self.link_widget = LinkWidget()
@@ -37,10 +37,10 @@ class MainWidget(QWidget):
         self.main_layout.addWidget(self.link_scroll_area, 1, 0)
 
         # left layout
-        self.left_layout.addWidget(self.link_set_buttonm, 1)
-        self.left_layout.addWidget(self.change_account_button, 1)
+        self.left_layout.addWidget(self.link_set_button)
+        self.left_layout.addWidget(self.change_account_button)
         self.left_layout.addSpacerItem(QSpacerItem(1,100))
-        self.left_layout.addWidget(self.start_button, 1)
+        self.left_layout.addWidget(self.start_button)
         
     
     def set_link_scroll_widget(self):
@@ -50,21 +50,34 @@ class MainWidget(QWidget):
 class LinkWidget(QWidget):
     def __init__(self):
         super().__init__()
+    
+    def set_Linkwidget(self):
+        button_list = self.get_button_list()
+        LinkRadioButtonGroup(button_list)
+            
+    def get_button_list(self) -> list:
+        # TODO : 로컬에 저장되어있는 link 를 불러오는 작업 필요
+        local_links = list() # 변경 해야함
+        button_list = list()
+
+        for link in local_links:
+            button = LinkRadioButton(link)
+            button_list.append(button)
+        return button_list
+
 
 class LinkRadioButtonGroup(QButtonGroup):
-    def __init__(self):
+    def __init__(self, button_list:list):
         super().__init__()
         self.setExclusive = False
 
-        self.set_buttongroup()
-    def set_buttongroup(self):
-        # TODO : 로컬에 저장되어있는 link 를 불러오는 작업 필요
-        pass
-    
-    def get_buttons(self):
-        # TODO 선택된 버튼이 여러개일 떄는 어떻게 값이 나오는지 예외처리 -> 2개면 리스트려나
-        buttons = self.checkedButton
+        self.button_list = button_list
 
+        self.set_buttongroup()
+
+    def set_buttongroup(self):
+        for button in self.button_list:
+            self.addButton(button)
 
 class LinkRadioButton(QRadioButton):
     def __init__(self, link:str):
@@ -83,6 +96,6 @@ def open_main_widget():
     app = QApplication(sys.argv)
     widget = MainWidget()
     widget.show()
-    sys.exit(app.exec_)
+    sys.exit(app.exec_())
 
 open_main_widget()
