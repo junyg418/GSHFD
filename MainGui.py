@@ -50,12 +50,33 @@ class MainWidget(QWidget):
 class LinkWidget(QWidget):
     def __init__(self):
         super().__init__()
-    
-    def set_Linkwidget(self):
+        self.layout = QHBoxLayout()
+        self.setlayout(self.layout)
+        
+        self.set_Linkwidget()
+        
+    def set_Linkwidget(self) -> None:
+        """
+        위젯의 기초 설정해주는 함수
+        :return:
+            None
+        """
         button_list = self.get_button_list()
         LinkRadioButtonGroup(button_list)
+    
+    def set_button_widget(self):
+        """
+        버튼들을 위젯에 추가하는 함수
+        """
+        button_list = self.get_button_list()
+        for button in button_list:
+            self.addwidget(button) #TODO 이부분 오류 검사 확인 필요
             
+        
     def get_button_list(self) -> list:
+        """
+        리스트에 포함된 QRadioButton 들의 나열하는 버튼을 반환하는 함수
+        """
         # TODO : 로컬에 저장되어있는 link 를 불러오는 작업 필요
         local_links = list() # 변경 해야함
         button_list = list()
