@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import *
+from CsvDataProcessingModule import get_link_to_list
 import sys
 
 
@@ -47,23 +48,34 @@ class MainWidget(QWidget):
         self.link_scroll_area.setWidget(self.link_widget)
 
 
+def get_button_list() -> list:
+    # TODO : 로컬에 저장되어있는 link 를 불러오는 작업 필요
+    local_links = get_link_to_list()  # 변경 해야함
+    button_list = list()
+
+    for link in local_links:
+        button = LinkRadioButton(link)
+        button_list.append(button)
+    return button_list
+
+
 class LinkWidget(QWidget):
     def __init__(self):
         super().__init__()
+        self.main_layout = QHBoxLayout()
+        self.setLayout(self.main_layout)
 
-    def set_Linkwidget(self):
-        button_list = self.get_button_list()
-        LinkRadioButtonGroup(button_list)
+    def _init_widget(self):
+        button_list = get_button_list()
+        self.set_LinkWidget_button(button_list)
+        self.set_LinkRadioButtonGroup(button_list)
 
-    def get_button_list(self) -> list:
-        # TODO : 로컬에 저장되어있는 link 를 불러오는 작업 필요
-        local_links = list()  # 변경 해야함
-        button_list = list()
+    def set_LinkWidget_button(self, button_list: list):
+        for button in button_list:
+            self.main_layout.addWidget(button)
 
-        for link in local_links:
-            button = LinkRadioButton(link)
-            button_list.append(button)
-        return button_list
+    def set_LinkRadioButtonGroup(self, button_list: list):
+        return LinkRadioButtonGroup(button_list)
 
 
 class LinkRadioButtonGroup(QButtonGroup):
