@@ -67,14 +67,28 @@ class LinkWidget(QWidget):
 
     def _init_widget(self):
         button_list = get_button_list()
-        self.set_LinkWidget_button(button_list)
-        self.set_LinkRadioButtonGroup(button_list)
+        self.set_buttons_in_LinkWidget(button_list)
+        self.button_group = self.init_LinkRadioButtonGroup(button_list)
 
-    def set_LinkWidget_button(self, button_list: list):
+    def set_buttons_in_LinkWidget(self, button_list: list) -> None:
+        """
+        위젯 내의 버튼을 추가해주는 메소드
+        :param button_list:
+            들어갈 버튼들의 리스트 -> list
+        :return:
+            None
+        """
         for button in button_list:
             self.main_layout.addWidget(button)
 
-    def set_LinkRadioButtonGroup(self, button_list: list):
+    def init_LinkRadioButtonGroup(self, button_list: list) -> QButtonGroup:
+        """
+        LinkRadioButtonGroup 을 초기화 시키고, 반환하는 메소드
+        :param button_list:
+            Widget 에 들어갈 버튼들의 리스트 -> list
+        :return:
+            PySide6.QButtonGroup
+        """
         return LinkRadioButtonGroup(button_list)
 
 
