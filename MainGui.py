@@ -10,7 +10,7 @@ class MainWidget(QWidget):
         self.setWindowTitle('GSHFD')
 
         self.main_layout = QGridLayout()
-        self.left_layout = QHBoxLayout()
+        self.left_layout = QVBoxLayout()
 
         self.link_set_button = QPushButton('주소추가')
         self.change_account_button = QPushButton('계정번경')
@@ -22,21 +22,27 @@ class MainWidget(QWidget):
         # 왼쪽 주소 창 -> 객체화 -> main_layout ( 0, 1 ) 위치 예정
         self._init_widget()
         self._init_layout()
+        self.set_link_scroll_widget()
 
     def _init_widget(self):
         # link set button
-        self.link_set_button.setFixedSize(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.link_set_button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.link_set_button.setMaximumHeight(40)
 
         # change account button
-        self.change_account_button.setFixedSize(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.change_account_button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.change_account_button.setMaximumHeight(40)
 
         # start button
-        self.start_button.setFixedSize(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.start_button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.start_button.setMaximumHeight(40)
 
     def _init_layout(self):
-        # main layout
+        self.setLayout(self.main_layout)
+
         self.main_layout.addLayout(self.left_layout, 0, 0)
-        self.main_layout.addWidget(self.link_scroll_area, 1, 0)
+        self.main_layout.addWidget(self.link_scroll_area, 0, 1)
+        # main layout
 
         # left layout
         self.left_layout.addWidget(self.link_set_button)
@@ -62,8 +68,11 @@ def get_button_list() -> list:
 class LinkWidget(QWidget):
     def __init__(self):
         super().__init__()
-        self.main_layout = QHBoxLayout()
+        print('LinkWidget 생성')
+        self.main_layout = QVBoxLayout()
         self.setLayout(self.main_layout)
+
+        self._init_widget()
 
     def _init_widget(self):
         button_list = get_button_list()
@@ -121,7 +130,7 @@ def open_main_widget():
     app = QApplication(sys.argv)
     widget = MainWidget()
     widget.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
 open_main_widget()
