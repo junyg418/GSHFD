@@ -8,6 +8,7 @@ class MainWidget(QWidget):
         super().__init__()
 
         self.setWindowTitle('GSHFD')
+        self.setFixedSize(300, 300)
 
         self.main_layout = QGridLayout()
         self.left_layout = QVBoxLayout()
@@ -35,7 +36,7 @@ class MainWidget(QWidget):
 
         # start button
         self.start_button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
-        self.start_button.setMaximumHeight(40)
+        self.start_button.setMaximumHeight(70)
 
     def _init_layout(self):
         self.setLayout(self.main_layout)
@@ -47,7 +48,7 @@ class MainWidget(QWidget):
         # left layout
         self.left_layout.addWidget(self.link_set_button)
         self.left_layout.addWidget(self.change_account_button)
-        self.left_layout.addSpacerItem(QSpacerItem(1, 100))
+        self.left_layout.addSpacerItem(QSpacerItem(1, 70))
         self.left_layout.addWidget(self.start_button)
 
     def set_link_scroll_widget(self):
