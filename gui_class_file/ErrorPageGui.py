@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import *
+from PySide6.QtCore import Qt
 
 class ErrorDialog(QDialog):
     def __init__(self, error_message: str):
