@@ -7,7 +7,7 @@ def get_user_data() -> pd.DataFrame:
     :return:
         pandas.DataFrame : user_data.csv -> DataFrame
     """
-    user_data_df = pd.read_csv('./csv_file/user_data.csv')
+    user_data_df = pd.read_csv('./gui_class_file/csv_file/user_data.csv')
     return user_data_df
 
 
